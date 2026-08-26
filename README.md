@@ -42,10 +42,12 @@ The original dataset contains benign hematogones and three malignant ALL subtype
 
 Two CNN classification pipelines were evaluated across 10 random seeds (42–51) to determine whether isolating white blood cells (WBCs) improved the classification of benign and malignant bone marrow cell images. Pipeline 1 used the original microscope images, while Pipeline 2 used images processed to isolate the white blood cells.
 
+
 ### Pipeline 1: Raw Images
 Pipeline 1 demonstrated consistently strong performance in detecting malignant cells. The model achieved an average malignant recall (sensitivity) of 98.29% ± 1.33% across the 10 runs. This means that, on average, the model correctly identified approximately 98% of the malignant images.
 
 The model's benign recall (specificity) was 86.97% ± 5.79%, indicating that it was less consistent at correctly identifying benign images than malignant images. Despite this difference, malignant recall remained high across all 10 seeds, ranging from 95.6% to 99.7%. The relatively small standard deviation also indicates that the model's ability to detect malignant cells was consistent across different random seeds.
+
 
 ### Pipeline 2: WBC Isolation
 Pipeline 2 showed lower and substantially more variable malignant detection performance. The average malignant recall was 90.07% ± 14.25%, compared with 98.29% ± 1.33% for Pipeline 1.
@@ -53,6 +55,7 @@ Pipeline 2 showed lower and substantially more variable malignant detection perf
 The larger standard deviation indicates that the performance of the WBC-isolation pipeline was much less consistent between runs. Malignant recall ranged from 47.6% to 97.4%. In particular, Seed 48 produced a substantial increase in false-negative predictions, with 188 malignant images incorrectly classified as benign. This resulted in a malignant recall of only 47.6% for that run.
 
 The average benign recall for Pipeline 2 was 86.70% ± 6.26%, which was very similar to Pipeline 1's 86.97% ± 5.79%. This suggests that WBC isolation did not meaningfully improve the model's ability to identify benign images either.
+
 
 ### Comparison of the Two Pipelines
 The primary difference between the two pipelines was their performance on the benign class, which was less represented in the dataset. Pipeline 1 achieved a benign recall of 86.97% ± 5.79%, while Pipeline 2 achieved 86.70% ± 6.26%, showing that WBC isolation did not improve the model's ability to identify benign images. Although the average benign recall was nearly identical, Pipeline 2 showed greater variability across runs.
