@@ -17,10 +17,10 @@ The original dataset contains benign hematogones and three malignant ALL subtype
 ## Methodology
 
 ### Pipeline 1: Raw Images
-...
+The original microscope images were used as input to a convolutional neural network (CNN) without additional image segmentation. The dataset was divided into training and testing sets, with benign and malignant images represented in each set. The CNN was trained to perform binary classification, and class weights were used to account for the unequal number of benign and malignant images. Model performance was evaluated using accuracy, confusion matrices, precision, recall, and F1-score across 10 random seeds (42–51).
 
 ### Pipeline 2: WBC Isolation
-...
+The same original images were preprocessed using OpenCV to isolate the purple-stained white blood cells (WBCs) from the surrounding image. The images were converted to HSV color space, and a color threshold was applied to create a mask identifying the WBC regions. The isolated WBCs were placed onto a white background before being provided to the same CNN classification process used in Pipeline 1. Performance was evaluated across the same 10 random seeds using the same metrics, allowing the two pipelines to be directly compared.
 
 ## Results
 | Metric               |         Raw Images |       WBC Isolation |
@@ -36,7 +36,11 @@ The original dataset contains benign hematogones and three malignant ALL subtype
 
 ## Limitations
 
-...
+The dataset contains more malignant than benign images, which may affect model performance and makes accuracy alone less representative of performance for each class. Class weights were used during training to help account for this imbalance.
+
+The dataset also consists of images collected from a single hospital using the same microscope, camera, and staining procedures. As a result, the model's performance may not generalize to images collected using different equipment, staining protocols, or laboratory environments.
+
+The WBC isolation process relied on manually selected HSV color thresholds. Differences in cell appearance, staining, and image quality may cause the segmentation to include unwanted regions or remove relevant information. Pipeline 2 also showed substantially greater variation across random seeds than Pipeline 1, indicating that the WBC-isolation approach produced less stable model performance.
 
 ## Conclusion
 
@@ -63,6 +67,10 @@ The primary difference between the two pipelines was their performance on the be
 The false-negative results further support this difference. Pipeline 1 consistently produced relatively few false negatives, whereas Pipeline 2 produced considerably more in several runs, with Seed 48 producing the largest number. Since false negatives represent malignant images that the model failed to identify, this variation is particularly important when evaluating the pipeline for cancer detection.
 
 Overall, WBC isolation did not improve malignant-cell detection in this experiment. Instead, the raw-image pipeline achieved higher malignant sensitivity and substantially greater consistency across random seeds.
+
+## Further Research
+
+Future work could investigate methods for improving the stability and performance of the WBC-isolation pipeline. One possible approach would be to use a pretrained CNN, such as ResNet, rather than training the model from scratch. Transfer learning could potentially provide more robust feature extraction and reduce the variation observed between training runs. Additional segmentation methods could also be explored to determine whether more accurate WBC isolation improves classification performance.
 
 ## Technologies
 
