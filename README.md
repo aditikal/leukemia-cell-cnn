@@ -31,8 +31,13 @@ The same original images were preprocessed using OpenCV to isolate the purple-st
 
 
 ## Model Interpretability
+Grad-CAM was used to visualize which regions of the images contributed to the CNN's predictions. These visualizations provide a qualitative look at what the models emphasized when making their classifications. Representative examples from both pipelines are shown below.
 
-[Grad-CAM explanation and images]
+Pipeline 1 (Raw Image):
+<img width="1125" height="353" alt="image" src="https://github.com/user-attachments/assets/a1bdc973-c2aa-403a-8fb3-122d8d2dcf69" />
+
+Pipeline 2 (WBC Isolation): 
+<img width="1125" height="351" alt="image" src="https://github.com/user-attachments/assets/acbc5d77-85af-4b85-82a0-ab8c66d0e708" />
 
 ## Limitations
 
@@ -41,6 +46,8 @@ The dataset contains more malignant than benign images, which may affect model p
 The dataset also consists of images collected from a single hospital using the same microscope, camera, and staining procedures. As a result, the model's performance may not generalize to images collected using different equipment, staining protocols, or laboratory environments.
 
 The WBC isolation process relied on manually selected HSV color thresholds. Differences in cell appearance, staining, and image quality may cause the segmentation to include unwanted regions or remove relevant information. Pipeline 2 also showed substantially greater variation across random seeds than Pipeline 1, indicating that the WBC-isolation approach produced less stable model performance.
+
+The Grad-CAM visualizations also showed variability in the regions emphasized by the models. In some examples, higher activation appeared around the background rather than the cell, while other images showed stronger activation around cellular regions. This suggests that the model may sometimes rely on image features outside the cell itself and provides additional qualitative evidence of variability in the model's behavior. However, because Grad-CAM is an interpretability tool rather than a direct measure of model attention it was used as a supplementary qualitative analysis rather than a primary evaluation method. Because the main objective of this project was to compare the classification performance of the two pipelines, further optimization or quantitative evaluation of the Grad-CAM visualizations was outside the scope of this project.
 
 ## Conclusion
 
